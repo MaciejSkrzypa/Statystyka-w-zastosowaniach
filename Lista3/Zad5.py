@@ -20,12 +20,17 @@ def main() -> None:
     print("Zbior danych: dwie grupy normalne A~N(50,10), B~N(50.8,10); zmienna liczebnosc proby od 10 do 1000")
     print("Liczebnosc | Srednia A | Srednia B | p-value")
 
+    # Inicjalizacja populacji raz dla size = 10000
+    grupa_a = rng.normal(loc=50.0, scale=10.0, size=10000)
+    grupa_b = rng.normal(loc=50.8, scale=10.0, size=10000)
+
     for n in sample_sizes:
-        grupa_a = rng.normal(loc=50.0, scale=10.0, size=n)
-        grupa_b = rng.normal(loc=50.8, scale=10.0, size=n)
-        _, p_value = stats.ttest_ind(grupa_a, grupa_b, equal_var=False)
+        # Losowanie próby z populacji
+        sample_a = rng.choice(grupa_a, size=n, replace=False)
+        sample_b = rng.choice(grupa_b, size=n, replace=False)
+        _, p_value = stats.ttest_ind(sample_a, sample_b, equal_var=False)
         p_values.append(float(p_value))
-        print(f"{n:10d} | {np.mean(grupa_a):8.3f} | {np.mean(grupa_b):8.3f} | {p_value:7.5f}")
+        print(f"{n:10d} | {np.mean(sample_a):8.3f} | {np.mean(sample_b):8.3f} | {p_value:7.5f}")
 
     fig, ax = plt.subplots(figsize=(7, 4))
     ax.plot(sample_sizes, p_values, marker="o")

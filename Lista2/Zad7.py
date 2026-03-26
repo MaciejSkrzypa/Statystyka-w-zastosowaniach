@@ -32,7 +32,9 @@ def main() -> None:
     y_uncorr = rng.normal(0, 1, n)
 
     print("=== Lista2/Zad7: Istotnosc korelacji ===")
-    print("Zbior danych: dwie pary danych syntetycznych (skorelowane i nieskorelowane), n=150")
+    print("Zbior danych: dwie pary danych syntetycznych, n=150")
+    print("Para skorelowana: x~N(0,1), y=0.8*x+epsilon, epsilon~N(0,0.4)")
+    print("Para nieskorelowana: x~N(0,1), y~N(0,1), losowane niezaleznie")
     report("Dane skorelowane:", x_corr, y_corr)
     report("Dane nieskorelowane:", x_uncorr, y_uncorr)
 
